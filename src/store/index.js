@@ -8,6 +8,7 @@ export default createStore({
     STATE: "waiting",
     USER: null,
     USER_INFO: null,
+    REPOS_LIST: null,
   },
   mutations: {
     setState(state, payload) {
@@ -18,6 +19,9 @@ export default createStore({
     },
     setUserInfo(state, payload) {
       state.USER_INFO = payload;
+    },
+    setReposList(state, payload) {
+      state.REPOS_LIST = payload;
     },
   },
   actions: {
@@ -30,6 +34,11 @@ export default createStore({
     async getUserInfo({ commit, state }) {
       const userInfo = await fs.getUser(state.USER);
       commit("setUserInfo", userInfo);
+      commit("setState", "waiting");
+    },
+    async getReposList({ commit, state }) {
+      const reposList = await fs.getRepos(state.USER);
+      commit("setReposList", reposList);
       commit("setState", "waiting");
     },
   },

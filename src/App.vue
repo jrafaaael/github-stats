@@ -2,16 +2,31 @@
   <main>
     <navbar />
     <section>
-      <div>
-        General info here (avatar, username, number of repo)
-      </div>
-      <div>
-        Repos list here
-      </div>
-      <div>
-        Chart of languages used for a specific repo here
-      </div>
+      <!-- grid 2x2 here -->
+      <!-- row 1, column 1 and 2: general info (avatar, username, repos quantity) -->
+      <!-- row 2, column 1: repos -->
+      <!-- row 2, column 2: After clicking on a repository, generate a chart with highcharts of the languages ​​used in that repo -->
     </section>
+
+    <!--{{ REPOS_LIST }}-->
+    <ul>
+      <li v-for="repos in REPOS_LIST" :key="repos.id">
+        {{ repos.name }}
+      </li>
+    </ul>
+    <br />
+    <br />
+    <!-- This is to demonstrate the operation of the input and the different states that the project has:
+    1) "waiting": waiting for a valid username
+    2) "typing": state that occurs while the user types. Goes to the "fetching" state 1 second (1000 ms) after the last change in the input
+    3) "fetching": state while the GET request occurs -->
+    {{ STATE }}
+    <br />
+    <br />
+    {{ USER }}
+    <br />
+    <br />
+    {{ USER_INFO }}
   </main>
 </template>
 
@@ -23,7 +38,7 @@ export default {
   name: "App",
   components: { Navbar },
   computed: {
-    ...mapState(["STATE", "USER", "USER_INFO"]),
+    ...mapState(["STATE", "USER", "USER_INFO", "REPOS_LIST"]),
   },
 };
 </script>
@@ -60,26 +75,5 @@ body,
 
 body {
   background-color: var(--primary-color);
-}
-
-section {
-  max-width: 800px;
-  margin: auto;
-  padding: 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-section div {
-  width: 100%;
-  height: 300px;
-  background-color: #fff;
-  color: var(--primary-color);
-}
-
-section div:nth-child(1) {
-  grid-column: 1/-1;
-  height: 75px;
 }
 </style>
