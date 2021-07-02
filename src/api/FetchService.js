@@ -10,21 +10,13 @@ const fs = axios.create({
 class FetchService {
   constructor() {}
 
-  async getUser(username) {
+  //TODO: Make error handling
+  async getUserAndRepos(username) {
     try {
-      const res = await fs.get(`/users/${username}`);
-      const data = await res.data;
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async getRepos(username) {
-    try {
-      const res = await fs.get(`/users/${username}/repos`);
-      const data = await res.data;
-      return data;
+      return await Promise.all([
+        fs.get(`/users/${username}`),
+        fs.get(`/users/${username}/repos`),
+      ]);
     } catch (error) {
       console.log(error);
     }

@@ -8,6 +8,7 @@ export default createStore({
     STATE: "waiting",
     USER: null,
     USER_INFO: null,
+    REPOS: null,
   },
   mutations: {
     setState(state, payload) {
@@ -19,6 +20,9 @@ export default createStore({
     setUserInfo(state, payload) {
       state.USER_INFO = payload;
     },
+    setRepos(state, payload) {
+      state.REPOS = payload;
+    },
   },
   actions: {
     changeState({ commit }, payload) {
@@ -28,8 +32,17 @@ export default createStore({
       commit("setUser", payload);
     },
     async getUserInfo({ commit, state }) {
-      const userInfo = await fs.getUser(state.USER);
+      const [{ data: userInfo }, { data: repos }] = await fs.getUserAndRepos(
+        state.USER
+      );
+
+      // TODO: Delete these "console.log". Here you can see the operation of the
+      //simultaneous GET requests of the user information and the repositories
+      console.log({ userInfo });
+      console.log({ repos });
+
       commit("setUserInfo", userInfo);
+      commit("setRepos", repos);
       commit("setState", "waiting");
     },
   },
