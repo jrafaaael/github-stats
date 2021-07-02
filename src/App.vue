@@ -16,15 +16,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import Navbar from "./components/Navbar.vue";
 
 export default {
   name: "App",
   components: { Navbar },
-  computed: {
-    ...mapState(["STATE", "USER", "USER_INFO"]),
-  },
 };
 </script>
 
