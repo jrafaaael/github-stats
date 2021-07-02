@@ -10,7 +10,7 @@ import IText from "./IText.vue";
 import _ from "lodash";
 
 import { ref } from "@vue/reactivity";
-import { onMounted, useSSRContext, watch } from "@vue/runtime-core";
+import { watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
 
 export default {
@@ -21,7 +21,7 @@ export default {
     const store = useStore();
     const input = ref(null);
 
-    const getAnswer = async () => {
+    const getUserInfo = async () => {
       if (!user.value.match("^[A-Za-z0-9]+$")) {
         input.value.fireCustomValidity("Search a valid Github user");
         store.dispatch("changeState", "waiting");
@@ -31,7 +31,7 @@ export default {
       await store.dispatch("getUserInfo");
     };
 
-    const debounceGetAnswer = _.debounce(getAnswer, 1000);
+    const debounceGetAnswer = _.debounce(getUserInfo, 1000);
 
     watch(user, (currentUser) => {
       store.dispatch("changeUser", currentUser);
