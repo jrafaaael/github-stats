@@ -32,18 +32,23 @@ export default createStore({
       commit("setUser", payload);
     },
     async getUserInfo({ commit, state }) {
-      const [{ data: userInfo }, { data: repos }] = await fs.getUserAndRepos(
-        state.USER
-      );
+      try {
+        const [{ data: userInfo }, { data: repos }] = await fs.getUserAndRepos(
+          state.USER
+        );
 
-      // TODO: Delete these "console.log". Here you can see the operation of the
-      //simultaneous GET requests of the user information and the repositories
-      console.log({ userInfo });
-      console.log({ repos });
+        // TODO: Delete these "console.log". Here you can see the operation of the
+        //simultaneous GET requests of the user information and the repositories
+        console.log({ userInfo });
+        console.log({ repos });
 
-      commit("setUserInfo", userInfo);
-      commit("setRepos", repos);
-      commit("setState", "waiting");
+        commit("setUserInfo", userInfo);
+        commit("setRepos", repos);
+        commit("setState", "waiting");
+      } catch (error) {
+        // TODO: Make error handling
+        console.log(error);
+      }
     },
   },
   modules: {},
