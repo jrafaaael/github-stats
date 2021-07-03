@@ -37,7 +37,6 @@ input {
 .input-container {
   width: 75%;
   max-width: 300px;
-  margin: 0 auto;
   padding: 0.75rem 1.25rem;
   background: var(--secondary-color);
   border-radius: 2px;
