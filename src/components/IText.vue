@@ -2,6 +2,8 @@
   <div class="input-container">
     <input
       :value="user"
+      :id="id"
+      autocomplete="off"
       type="text"
       placeholder="Search a user..."
       ref="input"
@@ -13,7 +15,7 @@
 <script>
 export default {
   name: "IText",
-  props: ["user"],
+  props: ["user", "id"],
   emits: ["update:user"],
   methods: {
     fireCustomValidity(text) {

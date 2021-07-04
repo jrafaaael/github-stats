@@ -44,7 +44,7 @@ export default createStore({
 
         commit("setUserInfo", userInfo);
         commit("setRepos", repos);
-        commit("setState", "waiting");
+        commit("setState", "done");
       } catch (error) {
         // TODO: Make error handling
         console.log(error);

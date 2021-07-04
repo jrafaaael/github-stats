@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <i-text v-model:user="user" ref="input" />
+    <i-text v-model:user="user" ref="input" id="username" />
   </nav>
 </template>
 
