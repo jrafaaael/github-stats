@@ -2,9 +2,7 @@
   <main>
     <navbar />
     <section v-if="STATE === 'done'">
-      <div>
-        General info here (avatar, username, number of repo)
-      </div>
+      <user-info />
       <div>
         Repos list here
       </div>
@@ -21,12 +19,13 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import HandleState from "./components/HandleState.vue";
+import UserInfo from "./components/UserInfo.vue";
 
 import { mapState } from "vuex";
 
 export default {
   name: "App",
-  components: { Navbar, HandleState },
+  components: { Navbar, HandleState, UserInfo },
   computed: {
     ...mapState(["STATE"]),
   },
@@ -67,24 +66,34 @@ body {
   background-color: var(--primary-color);
 }
 
+img {
+  display: block;
+}
+
 section {
   max-width: 800px;
   margin: auto;
   padding: 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-section div {
-  width: 100%;
+section > div {
   height: 300px;
   background-color: #fff;
   color: var(--primary-color);
 }
 
-section div:nth-child(1) {
-  grid-column: 1/-1;
-  height: 75px;
+@media all and (min-width: 750px) {
+  section {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  section > * {
+    flex: 0 0 calc(50% - 1rem);
+  }
 }
 </style>
