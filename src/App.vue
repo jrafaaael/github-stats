@@ -1,7 +1,7 @@
 <template>
   <main>
     <navbar />
-    <section>
+    <section v-if="STATE === 'done'">
       <div>
         General info here (avatar, username, number of repo)
       </div>
@@ -12,15 +12,24 @@
         Chart of languages used for a specific repo here
       </div>
     </section>
+    <section v-else>
+      <handle-state :state="STATE" id="username" />
+    </section>
   </main>
 </template>
 
 <script>
 import Navbar from "./components/Navbar.vue";
+import HandleState from "./components/HandleState.vue";
+
+import { mapState } from "vuex";
 
 export default {
   name: "App",
-  components: { Navbar },
+  components: { Navbar, HandleState },
+  computed: {
+    ...mapState(["STATE"]),
+  },
 };
 </script>
 
