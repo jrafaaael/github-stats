@@ -66,8 +66,14 @@ body {
   background-color: var(--primary-color);
 }
 
-img {
+img,
+svg {
   display: block;
+}
+
+svg {
+  width: 25px;
+  height: 25px;
 }
 
 section {
