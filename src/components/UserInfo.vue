@@ -34,19 +34,33 @@
     </div>
     <div class="description-container">
       <p>
-        {{ USER_INFO.bio }}
+        {{ USER_INFO.bio || 'no bio added 😭' }}
       </p>
+    </div>
+    <div class="social-container">
+      <a :href="USER_INFO.html_url" target="_blank">
+        <icon name="logo-github" />
+      </a>
+      <a
+        v-if="USER_INFO.twitter_username"
+        :href="`https://twitter.com/${USER_INFO.twitter_username}`"
+        target="_blank"
+      >
+        <icon name="logo-twitter" />
+      </a>
     </div>
   </article>
 </template>
 
 <script>
+import Icon from "./Icon.vue";
+
 import { useStore } from "vuex";
 import { computed } from "@vue/runtime-core";
 
 export default {
   name: "UserInfo",
-  components: {},
+  components: { Icon },
   setup() {
     const store = useStore();
 
@@ -68,7 +82,7 @@ article {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas:
-    "name ."
+    "name social"
     "avatar info"
     "description description";
   gap: 0.5rem 1rem;
@@ -88,14 +102,10 @@ article {
   grid-area: name;
 }
 
-.username {
-  text-align: center;
-}
-
 .info-container {
   grid-area: info;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 70px), 1fr));
 }
 
 .box {
@@ -117,11 +127,28 @@ p:not(.description + p) {
   grid-area: description;
 }
 
+.social-container {
+  grid-area: social;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+svg {
+  fill: snow;
+}
+
+a:hover svg {
+  fill: rgb(113, 162, 202);
+}
+
 @media all and (min-width: 600px) {
   article {
     grid-template-columns: auto auto 1fr;
     grid-template-areas:
-      "avatar name info"
+      "name name social"
+      "avatar info info"
       "avatar description description";
   }
 
@@ -129,18 +156,10 @@ p:not(.description + p) {
     max-width: 105px;
   }
 
-  .username-container,
   .description-container {
     display: flex;
     align-items: center;
-  }
-
-  .username-container {
-    justify-content: center;
-  }
-
-  .description-container {
-    justify-content: start;
+    justify-content: flex-start;
   }
 }
 
@@ -150,14 +169,23 @@ p:not(.description + p) {
     grid-template-areas:
       "avatar"
       "name"
+      "description"
       "info"
-      "description";
+      "social";
   }
 
   .avatar-container {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .username {
+    text-align: center;
+  }
+
+  .social-container {
+    justify-content: center;
   }
 }
 </style>
