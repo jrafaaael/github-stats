@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="state">
     <img :src="gifToLoad(STATES[state]?.gif ?? 'waiting')" alt="state" />
     <label :for="id">{{ STATES[state].text }}</label>
   </article>
@@ -23,22 +23,17 @@ export default {
 </script>
 
 <style scoped>
-article {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
 img {
   width: 100%;
   min-width: 250px;
   max-width: 500px;
+  margin-bottom: 1rem;
   border-radius: 10px;
 }
 
 label {
+  text-align: center;
+  display: block;
   cursor: pointer;
 }
 </style>

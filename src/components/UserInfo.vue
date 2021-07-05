@@ -34,7 +34,7 @@
     </div>
     <div class="description-container">
       <p>
-        {{ USER_INFO.bio || 'no bio added 😭' }}
+        {{ USER_INFO.bio || "no bio added 😭" }}
       </p>
     </div>
     <div class="social-container">
@@ -67,7 +67,6 @@ export default {
     return {
       USER: computed(() => store.state.USER),
       USER_INFO: computed(() => store.state.USER_INFO),
-      REPOS: computed(() => store.state.REPOS),
     };
   },
 };
@@ -75,17 +74,13 @@ export default {
 
 <style scoped>
 article {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: var(--secondary-color);
-  border-radius: 10px;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas:
-    "name social"
-    "avatar info"
-    "description description";
-  gap: 0.5rem 1rem;
+    "name name social"
+    "avatar info info"
+    "description description description";
+  gap: 1rem;
 }
 
 .avatar-container {
@@ -172,6 +167,7 @@ a:hover svg {
       "description"
       "info"
       "social";
+    gap: 1.25rem;
   }
 
   .avatar-container {
