@@ -13,7 +13,12 @@ class FetchService {
   async getUserAndRepos(username) {
     return await Promise.all([
       fs.get(`/users/${username}`),
-      fs.get(`/users/${username}/repos`),
+      fs.get(`/users/${username}/repos`, {
+        params: {
+          sort: "updated",
+          per_page: 7,
+        },
+      }),
     ]);
   }
 
