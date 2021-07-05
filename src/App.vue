@@ -3,9 +3,7 @@
     <navbar />
     <section v-if="STATE === 'done'">
       <user-info />
-      <div>
-        Repos list here
-      </div>
+      <repos-list />
       <div>
         Chart of languages used for a specific repo here
       </div>
@@ -22,10 +20,11 @@ import HandleState from "./components/HandleState.vue";
 import UserInfo from "./components/UserInfo.vue";
 
 import { mapState } from "vuex";
+import ReposList from "./components/ReposList.vue";
 
 export default {
   name: "App",
-  components: { Navbar, HandleState, UserInfo },
+  components: { Navbar, HandleState, UserInfo, ReposList },
   computed: {
     ...mapState(["STATE"]),
   },
@@ -66,8 +65,7 @@ body {
   background-color: var(--primary-color);
 }
 
-img,
-svg {
+img {
   display: block;
 }
 
@@ -77,12 +75,20 @@ svg {
 }
 
 section {
-  max-width: 800px;
+  max-width: 850px;
   margin: auto;
   padding: 1rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+article:not(.state) {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
 }
 
 section > div {
