@@ -18,4 +18,5 @@ module.exports = {
 
     config.module.rule("svg").exclude.add(/icons/);
   },
+  publicPath: process.env.NODE_ENV === "production" ? "/github-stats/" : "/",
 };
