@@ -9,6 +9,8 @@ export default createStore({
     USER: null,
     USER_INFO: null,
     REPOS: null,
+    REPO: null,
+    REPO_LANGS: null,
   },
   mutations: {
     setState(state, payload) {
@@ -22,6 +24,12 @@ export default createStore({
     },
     setRepos(state, payload) {
       state.REPOS = payload;
+    },
+    setRepo(state, payload) {
+      state.REPO = payload;
+    },
+    setRepoInfo(state, payload) {
+      state.REPO_LANGS = payload;
     },
   },
   actions: {
@@ -42,6 +50,8 @@ export default createStore({
         console.log({ userInfo });
         console.log({ repos });
 
+        commit("setRepo", null);
+        commit("setRepoInfo", null);
         commit("setUserInfo", userInfo);
         commit("setRepos", repos);
         commit("setState", "done");
@@ -49,6 +59,12 @@ export default createStore({
         // TODO: Make error handling
         console.log(error);
       }
+    },
+    async changeRepo({ commit, state }, payload) {
+      commit("setRepoInfo", "fetching");
+      commit("setRepo", payload);
+      const res = await fs.getLanguages(state.USER, state.REPO);
+      commit("setRepoInfo", res);
     },
   },
   modules: {},

@@ -4,9 +4,7 @@
     <section v-if="STATE === 'done'">
       <user-info />
       <repos-list />
-      <div>
-        Chart of languages used for a specific repo here
-      </div>
+      <languages-chart />
     </section>
     <section v-else>
       <handle-state :state="STATE" id="username" />
@@ -21,10 +19,17 @@ import UserInfo from "./components/UserInfo.vue";
 
 import { mapState } from "vuex";
 import ReposList from "./components/ReposList.vue";
+import LanguagesChart from "./components/LanguagesChart.vue";
 
 export default {
   name: "App",
-  components: { Navbar, HandleState, UserInfo, ReposList },
+  components: {
+    Navbar,
+    HandleState,
+    UserInfo,
+    ReposList,
+    LanguagesChart,
+  },
   computed: {
     ...mapState(["STATE"]),
   },
@@ -69,7 +74,7 @@ img {
   display: block;
 }
 
-svg {
+svg:not(.highcharts-root) {
   width: 25px;
   height: 25px;
 }
