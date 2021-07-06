@@ -3,7 +3,10 @@
     <h2>
       Last {{ REPOS.length > 1 ? `${REPOS.length} repos` : "repo" }} updated
       <tooltip dataTooltip="see all">
-        <a :href="`https://github.com/${USER}?tab=repositories`" target="_blank">
+        <a
+          :href="`https://github.com/${USER}?tab=repositories`"
+          target="_blank"
+        >
           <icon name="external-link-line" />
         </a>
       </tooltip>
@@ -11,7 +14,7 @@
     <ol>
       <li v-for="repo in REPOS" :key="repo.id">
         <div class="container">
-          <button>
+          <button @click="changeRepo(repo.name)">
             {{ repo.name }}
           </button>
           <tooltip
@@ -43,9 +46,11 @@ export default {
   components: { Icon, Tooltip },
   setup() {
     const store = useStore();
+
     return {
       USER: computed(() => store.state.USER),
       REPOS: computed(() => store.state.REPOS),
+      changeRepo: (repo) => store.dispatch('changeRepo', repo),
       moment: computed(() => moment),
     };
   },
@@ -89,8 +94,8 @@ button {
 }
 
 svg {
-  width: 17px;
-  height: 17px;
+  width: 17px !important;
+  height: 17px !important;
   fill: snow;
 }
 
